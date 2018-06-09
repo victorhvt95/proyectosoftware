@@ -50,17 +50,7 @@
                                         <td>
                                             <a class="btn btn-warning" href="{{url('proyecto/'.$item->id.'/edit')}}">Editar</a>
                                             <a class="btn btn-success" href="{{url('proyecto/'.$item->id)}}">Ver</a>
-                                            <button class="btn btn-default" data-toggle="modal" data-target="#modal2">Editar</button>
-                                            <div id="modal2" class="modal">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">Editar proyecto{{' #'.$item->id}}</div>
-                                                        <div class="modal-body">
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             {!! Form::open([
                                                 'method'=>'DELETE',
                                                 'url' => ['/proyecto', $item->id],

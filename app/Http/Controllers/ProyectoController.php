@@ -32,15 +32,15 @@ class ProyectoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $proyecto=new Proyecto();
-        $proyecto->nombre=$request->get('nombre');
-        $proyecto->estado=1;
-        $proyecto->idusuario=Auth::id();
+        $proyecto = new Proyecto();
+        $proyecto->nombre = $request->get('nombre');
+        $proyecto->estado = 1;
+        $proyecto->idusuario = Auth::id();
         $proyecto->save();
         return Redirect::to('/home');
     }
@@ -48,45 +48,53 @@ class ProyectoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Proyecto  $proyecto
+     * @param  \App\Proyecto $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function show(Proyecto $proyecto)
+    public function show($id)
     {
-        return 'proyecto show';
+        $proyecto=Proyecto::findOrFail($id);
+        return view('proyecto.show',["proyecto"=>$proyecto]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Proyecto  $proyecto
+     * @param  \App\Proyecto $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Proyecto $proyecto)
+    public function edit($id)
     {
-        return 'proyecto edit';
+        $proyecto = Proyecto::find($id);
+        return view("proyecto.edit", ["proyecto" => $proyecto]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Proyecto  $proyecto
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Proyecto $proyecto
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        return 'proyecto update';
+        $proyecto = Proyecto::findOrFail($id);
+        $proyecto->nombre = $request->get("nombre");
+        $proyecto->update();
+        return Redirect::to('home/');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Proyecto  $proyecto
+     * @param  \App\Proyecto $proyecto
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        return 'proyecto destroy';
+        $proyecto = Proyecto::find($id);
+        $proyecto->estado = 0;
+        $proyecto->update();
+        return Redirect::to('/home');
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Proyecto;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -25,8 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $proyectos=Proyecto::where("idusuario","=",Auth::user()->id)
-        ->paginate(10);
-        return view('home',["proyectos"=>$proyectos]);
+        $proyectos = Proyecto::where("idusuario", "=", Auth::user()->id)
+            ->where("estado", "=", 1)
+            ->paginate(10);
+        return view('home', ["proyectos" => $proyectos]);
     }
 }
