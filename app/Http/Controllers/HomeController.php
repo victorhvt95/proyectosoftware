@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Proyecto;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Kreait\Firebase\Auth;
+use \Illuminate\Support\Facades\Auth as AuthLara;
 
 class HomeController extends Controller
 {
@@ -24,9 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $proyectos = Proyecto::where("idusuario", "=", Auth::user()->id)
-            ->where("estado", "=", 1)
-            ->paginate(10);
-        return view('home', ["proyectos" => $proyectos]);
+        $proyectos=DB::table('proyecto_usuario')
+            ->where('usuario_id','=',AuthLara::user()->id)
+            ->join('proyecto as pro','pro.id','proyecto_id')
+            ->orderBy('id','desc')
+            ->paginate(3);
+        return view('home',["proyectos"=>$proyectos]);
     }
 }

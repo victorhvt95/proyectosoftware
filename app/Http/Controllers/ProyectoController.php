@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Laravel\Http\Controllers;
 
-use App\Proyecto;
+use Laravel\Proyecto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -48,7 +48,7 @@ class ProyectoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Proyecto $proyecto
+     * @param  \Laravel\Proyecto $proyecto
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -60,7 +60,7 @@ class ProyectoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Proyecto $proyecto
+     * @param  \Laravel\Proyecto $proyecto
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -73,7 +73,7 @@ class ProyectoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Proyecto $proyecto
+     * @param  \Laravel\Proyecto $proyecto
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -87,7 +87,7 @@ class ProyectoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Proyecto $proyecto
+     * @param  \Laravel\Proyecto $proyecto
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

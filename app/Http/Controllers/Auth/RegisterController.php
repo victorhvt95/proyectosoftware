@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\Http\Controllers\firebase_controller;
 use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
 
 class RegisterController extends Controller
 {
@@ -55,18 +57,16 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
     protected function create(array $data)
     {
-        return User::create([
+        $info=[
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+            'password' => bcrypt($data['password']),
+        ];
+        $user= User::create($info);
+        $rama='usuarios/'.$user->id;
+        firebase_controller::registrar($rama,$info);
+        return $user;
     }
 }
